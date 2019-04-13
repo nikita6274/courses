@@ -14,5 +14,4 @@ class Test extends \Magento\Framework\App\Action\Action {
         $resultPage = $this->resultPageFactory->create();
         return $resultPage;
     }
-
 }

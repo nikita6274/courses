@@ -2,7 +2,8 @@
 
 namespace Nikita\Store\Controller;
 
-class Router implements \Magento\Framework\App\RouterInterface {
+class Router implements \Magento\Framework\App\RouterInterface
+{
 
     /**
      * @var \Magento\Framework\App\ActionFactory
@@ -19,9 +20,12 @@ class Router implements \Magento\Framework\App\RouterInterface {
     /**
      * @param \Magento\Framework\App\ActionFactory $actionFactory
      * @param \Magento\Framework\App\ResponseInterface $response
+     * @param \Nikita\Store\Helper\Data $helperData
      */
     public function __construct(
-        \Magento\Framework\App\ActionFactory $actionFactory, \Magento\Framework\App\ResponseInterface $response, \Nikita\Store\Helper\Data $helperData)
+        \Magento\Framework\App\ActionFactory $actionFactory,
+        \Magento\Framework\App\ResponseInterface $response,
+        \Nikita\Store\Helper\Data $helperData)
     {
         $this->actionFactory = $actionFactory;
         $this->_response = $response;
@@ -38,16 +42,14 @@ class Router implements \Magento\Framework\App\RouterInterface {
     {
         $identifier = trim($request->getPathInfo(), '/');
         if (strpos($identifier, 'exampletocms') !== false) {
-            $request->setModuleName('cms')->setControllerName('page')->setActionName('view')->setParam('page_id', 4); // specify the page id
+            $request->setModuleName('cms')->setControllerName('page')->setActionName('view')->setParam('page_id', 4);
         } else if (strpos($identifier, $this->helperData->getFrontUrl()) !== false) {
             $request->setModuleName('mystore')->setControllerName('test')->setActionName('test');
         } else {
             return;
         }
 
-        return $this->actionFactory->create(
-            'Magento\Framework\App\Action\Forward', ['request' => $request]
-        );
+        return $this->actionFactory->create('Magento\Framework\App\Action\Forward', ['request' => $request]);
     }
 
 }
