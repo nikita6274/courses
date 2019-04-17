@@ -20,11 +20,12 @@ class Cart extends \Magento\Framework\App\Action\Action
         $this->request = $request;
     }
 
-    public function afterInitProduct(\Magento\Checkout\Controller\Cart\Add $subject, $result)
+    public function beforeExecute(\Magento\Checkout\Controller\Cart\Add $subject)
     {
         $sku = $this->request->getParam('sku');
-        $result = $this->productRepository->get($sku);
-        return $result;
+        $product = $this->productRepository->get($sku);
+        $productId = $product->getId();
+        $this->request->setParam('product', $productId);
     }
 
     public function execute()

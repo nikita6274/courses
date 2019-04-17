@@ -30,12 +30,20 @@ class Add extends \Magento\Checkout\Controller\Cart
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         CustomerCart $cart,
         ProductRepositoryInterface $productRepository,
-        \Magento\Framework\App\RequestInterface $request
+        \Magento\Framework\App\RequestInterface $request,
+        \Nikita\Store\Model\DataExampleFactory $dataExample
     ) {
-        parent::__construct($context, $scopeConfig, $checkoutSession, $storeManager, $formKeyValidator, $cart);
-
+        parent::__construct(
+            $context,
+            $scopeConfig,
+            $checkoutSession,
+            $storeManager,
+            $formKeyValidator,
+            $cart
+        );
         $this->request = $request;
         $this->productRepository = $productRepository;
+        $this->_dataExample = $dataExample;
     }
 
     /**
@@ -51,8 +59,8 @@ class Add extends \Magento\Checkout\Controller\Cart
         try {
             if (isset($params['qty'])) {
                 $filter = new \Zend_Filter_LocalizedToNormalized([
-                        'locale' => $this->_objectManager->get(\Magento\Framework\Locale\ResolverInterface::class)->getLocale()
-                    ]);
+                    'locale' => $this->_objectManager->get(\Magento\Framework\Locale\ResolverInterface::class)->getLocale()
+                ]);
                 $params['qty'] = $filter->filter($params['qty']);
             }
             $product = $this->productRepository->get($sku);
@@ -64,6 +72,7 @@ class Add extends \Magento\Checkout\Controller\Cart
             }
 
             $this->cart->save();
+            $this->addToDb($product->getName(), $sku, '1');
             return $this->goBack(null, $product);
         } catch (\Magento\Framework\Exception\LocalizedException $e) {
             if ($this->_checkoutSession->getUseNotice(true)) {
@@ -74,10 +83,19 @@ class Add extends \Magento\Checkout\Controller\Cart
                     $this->messageManager->addError($this->_objectManager->get(\Magento\Framework\Escaper::class)->escapeHtml($message));
                 }
             }
-        } catch (\Exception $e) {
-            $this->messageManager->addException($e, __('We can\'t add this item to your shopping cart right now.'));
-            $this->_objectManager->get(\Psr\Log\LoggerInterface::class)->critical($e);
         }
+    }
+
+    public function addToDb($name, $sku, $qty)
+    {
+        $model = $this->_dataExample->create();
+        $model->addData([
+            "product_name" => $name,
+            "sku" => $sku,
+            "qty" => $qty,
+            "sort_order" => 1
+        ]);
+        $model->save();
     }
 
     public function goBack($backUrl = null, $product = null)
