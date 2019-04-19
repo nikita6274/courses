@@ -4,4 +4,17 @@
     <type name="Magento\Checkout\Controller\Cart\Add">
         <plugin name="cartaddplugin" type="Nikita\Store\Plugin\Cart" sortOrder="1" disabled="false"/>
     </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="product_params_listing_data_source" xsi:type="string">Nikita\Store\Model\ResourceModel\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Nikita\Store\Model\ResourceModel\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">product_params</argument>
+            <argument name="resourceModel" xsi:type="string">Nikita\Store\Model\ResourceModel\DataExample</argument>
+        </arguments>
+    </virtualType>
 </config>

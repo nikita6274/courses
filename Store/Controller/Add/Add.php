@@ -72,7 +72,7 @@ class Add extends \Magento\Checkout\Controller\Cart
             }
 
             $this->cart->save();
-            $this->addToDb($product->getName(), $sku, '1');
+            $this->addToDb($product->getName(), $sku, 1);
             return $this->goBack(null, $product);
         } catch (\Magento\Framework\Exception\LocalizedException $e) {
             if ($this->_checkoutSession->getUseNotice(true)) {
@@ -96,6 +96,7 @@ class Add extends \Magento\Checkout\Controller\Cart
             "sort_order" => 1
         ]);
         $model->save();
+
     }
 
     public function goBack($backUrl = null, $product = null)
