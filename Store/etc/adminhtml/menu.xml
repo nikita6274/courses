@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Nikita_Store::grid" title="DbGrid" module="Nikita_Store" sortOrder="51" resource="Nikita_Store::grid"/>
+        <add id="Nikita_Store::post" title="Grid" module="Nikita_Store" sortOrder="10" action="store/post" resource="Nikita_Store::post" parent="Nikita_Store::grid"/>
+    </menu>
+</config>
