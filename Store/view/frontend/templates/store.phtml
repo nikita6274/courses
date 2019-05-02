@@ -1,0 +1,13 @@
+<form name="add" action="<?php echo $block->getUrl('mystore/add/add');?>" method="POST">
+    <input type="text" name="sku" list="sku">
+    <datalist id="sku" class="skuList">
+    </datalist>
+    <button type="submit">add to cart</button>
+</form>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "autocomplete": {}
+        }
+    }
+</script>
