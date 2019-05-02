@@ -43,7 +43,7 @@ class Add extends \Magento\Checkout\Controller\Cart
         );
         $this->request = $request;
         $this->productRepository = $productRepository;
-        $this->_dataExample = $dataExample;
+        $this->dataExample = $dataExample;
     }
 
     /**
@@ -88,7 +88,7 @@ class Add extends \Magento\Checkout\Controller\Cart
 
     public function addToDb($name, $sku, $qty)
     {
-        $model = $this->_dataExample->create();
+        $model = $this->dataExample->create();
         $model->addData([
             "product_name" => $name,
             "sku" => $sku,
