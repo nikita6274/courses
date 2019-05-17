@@ -2,7 +2,7 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
         <tab id="custom_tab" translate="label" sortOrder="10">
-            <label>Url</label>
+            <label>Amasty</label>
         </tab>
         <section id="customsetting" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
             <class>separator-top</class>
@@ -11,9 +11,34 @@
             <resource>Magestore_CustomSetting::customsetting_configuration</resource>
             <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
                 <label>General Configuration</label>
-                <field id="fronturl" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="fronturl" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>Frontend Locator Url</label>
                     <comment>Set your url</comment>
+                </field>
+            </group>
+        </section>
+        <section id="discount" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Discount</label>
+            <tab>custom_tab</tab>
+            <resource>Magestore_CustomSetting::customsetting_configuration</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>General Configuration</label>
+                <field id="discount" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>discount amount</label>
+                    <validate>required-entry validate-digits validate-not-negative-number</validate>
+                </field>
+                <field id="count" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>each n</label>
+                    <validate>required-entry validate-digits validate-not-negative-number</validate>
+                </field>
+                <field id="qty" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>max qty apply</label>
+                    <validate>required-entry validate-digits validate-not-negative-number</validate>
+                </field>
+                <field id="maxdiscount" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>max amount of discount</label>
+                    <validate>required-entry validate-digits validate-not-negative-number</validate>
                 </field>
             </group>
         </section>

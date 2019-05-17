@@ -17,4 +17,11 @@
             <argument name="resourceModel" xsi:type="string">Nikita\Store\Model\ResourceModel\DataExample</argument>
         </arguments>
     </virtualType>
+    <type name="Nikita\Store\Model\Rule\Condition\Customer">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="form_name" xsi:type="string">sales_rule_form</item>
+            </argument>
+        </arguments>
+    </type>
 </config>
